@@ -1,5 +1,7 @@
 import pytest
-from src.main import Category, Product
+from src.main import Category, Product, print_demo
+
+print_demo()
 
 @pytest.fixture(autouse=True)
 def reset_counters():
