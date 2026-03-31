@@ -20,3 +20,9 @@ def category_phones():
 def test_product():
     product1 = Product("Samsung Galaxy S23 Ultra", "256GB, Серый цвет, 200MP камера", 180000.0, 5)
     assert product1.name == "Samsung Galaxy S23 Ultra"
+
+def test_category_init(category_phones):
+    assert category_phones.name == "Смартфоны"
+    assert category_phones.description == "Смартфоны, как средство не только коммуникации, но и получения дополнительных функций для удобства жизни"
+    assert Category.category_count == 1
+    assert Category.product_count == 3
