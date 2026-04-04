@@ -37,7 +37,18 @@ def test_private_products_and_add_products():
     prod = Product("Тест", "Описание", 100, 1)
 
     with pytest.raises(AttributeError):
-        _ = cat.products
+        _ = cat.__products
 
     cat.add_product(prod)
     assert Category.product_count == 1
+
+def test_products_property_format(category_phones):
+    products_list = category_phones.products
+
+    assert len(products_list) == 3
+
+    expected_str = "Samsung Galaxy S23 Ultra, 180000.0 руб. Остаток: 5 шт."
+    assert products_list[0] == expected_str
+
+    expected_str2 = "Iphone 15, 210000.0 руб. Остаток: 8 шт."
+    assert products_list[1] == expected_str2
