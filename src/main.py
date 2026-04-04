@@ -34,6 +34,13 @@ class Category:
         self.__products.append(product)
         Category.product_count += 1
 
+    @property
+    def products(self):
+        product_strings = []
+        for p in self.__products:
+            product_strings.append(f"{p.name}, {p.price} руб. Остаток: {p.quantity} шт.")
+        return product_strings
+
 def print_demo():
     product1 = Product("Samsung Galaxy S23 Ultra", "256GB, Серый цвет, 200MP камера", 180000.0, 5)
     product2 = Product("Iphone 15", "512GB, Gray space", 210000.0, 8)
