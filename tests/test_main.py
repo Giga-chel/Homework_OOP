@@ -1,4 +1,5 @@
 import pytest
+from unittest.mock import patch
 from src.main import Category, Product, print_demo
 
 print_demo()
@@ -84,3 +85,11 @@ def test_product_setter_negative_price(capsys):
     captured = capsys.readouterr()
     assert "Цена не должна быть нулевая или отрицательная" in captured.out
     assert prod.price == 100.0
+
+def test_product_setter_lower_price_confirm():
+    prod = Product("Тест", "Тест", 100.0, 1)
+
+    with patch('builtins.input', return_value='y'):
+        prod.price = 80.0
+
+    assert prod.price == 80.0
