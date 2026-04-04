@@ -9,6 +9,13 @@ class Product:
         self.price = price
         self.quantity = quantity
 
+    @classmethod
+    def new_product(cls, product_data, existing_products=None):
+        name = product_data['name']
+        description = product_data['description']
+        price = product_data['price']
+        quantity = product_data['quantity']
+
 class Category:
     category_count = 0
     product_count = 0
