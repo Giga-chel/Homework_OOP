@@ -60,3 +60,19 @@ def test_new_product_classmethod():
     assert isinstance(new_prod, Product)
     assert new_prod.name == "Клавиатура"
     assert new_prod.price == 5000.0
+
+def test_new_product_merge_and_max_price():
+    existing_prod = Product("Клавиатура", "Механическая", 5000.0, 10)
+
+    data_higher = {"name": "Клавиатура", "description": "Игровая", "price": 7000.0, "quantity": 5}
+    merged_prod = Product.new_product(data_higher, [existing_prod])
+
+    assert merged_prod is existing_prod
+    assert merged_prod.quantity == 15
+    assert merged_prod.price == 7000.0
+
+    data_lower = {"name": "Клавиатура", "description": "Офисная", "price": 3000.0, "quantity": 2}
+    merged_prod2 = Product.new_product(data_lower, [existing_prod])
+
+    assert merged_prod2.quantity == 17
+    assert merged_prod2.price == 7000.0
