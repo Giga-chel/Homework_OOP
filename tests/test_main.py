@@ -31,3 +31,13 @@ def test_category_init(category_phones):
     assert category_phones.description == "Смартфоны, как средство не только коммуникации, но и получения дополнительных функций для удобства жизни"
     assert Category.category_count == 1
     assert Category.product_count == 3
+
+def test_private_products_and_add_products():
+    cat = Category("Телевизоры", "Описание")
+    prod = Product("Тест", "Описание", 100, 1)
+
+    with pytest.raises(AttributeError):
+        _ = cat.products
+
+    cat.add_product(prod)
+    assert Category.product_count == 1
