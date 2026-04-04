@@ -93,3 +93,11 @@ def test_product_setter_lower_price_confirm():
         prod.price = 80.0
 
     assert prod.price == 80.0
+
+def test_product_setter_lower_price_reject():
+    prod = Product("Тест", "Тест", 100.0, 1)
+
+    with patch('builtins.input', return_value='n'):
+        prod.price = 80.0
+
+    assert prod.price == 100.0
