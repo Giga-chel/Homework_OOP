@@ -76,3 +76,11 @@ def test_new_product_merge_and_max_price():
 
     assert merged_prod2.quantity == 17
     assert merged_prod2.price == 7000.0
+
+def test_product_setter_negative_price(capsys):
+    prod = Product("Тест", "Тест", 100.0, 1)
+    prod.price = -50.0
+
+    captured = capsys.readouterr()
+    assert "Цена не должна быть нулевая или отрицательная" in captured.out
+    assert prod.price == 100.0
