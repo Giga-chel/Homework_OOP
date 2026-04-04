@@ -1,13 +1,48 @@
 class Product:
     name: str
     description: str
-    price: float
+    __price: float
     quantity: int
     def __init__(self, name, description, price, quantity):
         self.name = name
         self.description = description
+        self.__price = 0.0
         self.price = price
         self.quantity = quantity
+
+    @property
+    def price(self):
+        return self.__price
+
+    @price.setter
+    def price(self, new_price):
+        if new_price <= 0:
+            print('Цена не должна быть нулевая или отрицательная')
+            return
+
+        if new_price < self.__price:
+            answer = input('Понизить цену? y/n\n')
+            if answer.lower() != 'y':
+                return
+
+        self.__price = new_price
+
+    @classmethod
+    def new_product(cls, product_data, existing_products=None):
+        name = product_data['name']
+        description = product_data['description']
+        price = product_data['price']
+        quantity = product_data['quantity']
+
+        if existing_products:
+            for product in existing_products:
+                if product.name == name:
+                    product.quantity += quantity
+                    if price > product.price:
+                        product.price = price
+                    return product
+
+        return cls(name, description, price, quantity)
 
 class Category:
     category_count = 0
@@ -15,15 +50,31 @@ class Category:
 
     name: str
     description: str
-    products: list
+    __products: list
 
-    def __init__(self, name, description, products):
+    def __init__(self, name, description, products=None):
         self.name = name
         self.description = description
-        self.products = products
+        self.__products = []
+
+        if products is None:
+            products = []
+
+        for product in products:
+            self.add_product(product)
 
         Category.category_count += 1
-        Category.product_count += len(products)
+
+    def add_product(self, product):
+        self.__products.append(product)
+        Category.product_count += 1
+
+    @property
+    def products(self):
+        product_strings = []
+        for p in self.__products:
+            product_strings.append(f"{p.name}, {p.price} руб. Остаток: {p.quantity} шт.")
+        return product_strings
 
 def print_demo():
     product1 = Product("Samsung Galaxy S23 Ultra", "256GB, Серый цвет, 200MP камера", 180000.0, 5)
