@@ -20,6 +20,13 @@ class Product:
             print('Цена не должна быть нулевая или отрицательная')
             return
 
+        if new_price < self.__price:
+            answer = input('Понизить цену? y/n\n')
+            if answer.lower() != 'y':
+                return
+
+        self.__price = new_price
+
     @classmethod
     def new_product(cls, product_data, existing_products=None):
         name = product_data['name']
