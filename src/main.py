@@ -15,15 +15,24 @@ class Category:
 
     name: str
     description: str
-    products: list
+    __products: list
 
-    def __init__(self, name, description, products):
+    def __init__(self, name, description, products=None):
         self.name = name
         self.description = description
-        self.products = products
+        self.__products = []
+
+        if products is None:
+            products = []
+
+        for product in products:
+            self.add_product(product)
 
         Category.category_count += 1
-        Category.product_count += len(products)
+
+    def add_product(self, product):
+        self.__products.append(product)
+        Category.product_count += 1
 
 def print_demo():
     product1 = Product("Samsung Galaxy S23 Ultra", "256GB, Серый цвет, 200MP камера", 180000.0, 5)
