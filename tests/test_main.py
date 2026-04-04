@@ -52,3 +52,11 @@ def test_products_property_format(category_phones):
 
     expected_str2 = "Iphone 15, 210000.0 руб. Остаток: 8 шт."
     assert products_list[1] == expected_str2
+
+def test_new_product_classmethod():
+    data = {"name": "Клавиатура", "description": "Механическая", "price": 5000.0, "quantity": 10}
+    new_prod = Product.new_product(data)
+
+    assert isinstance(new_prod, Product)
+    assert new_prod.name == "Клавиатура"
+    assert new_prod.price == 5000.0
