@@ -16,6 +16,16 @@ class Product:
         price = product_data['price']
         quantity = product_data['quantity']
 
+        if existing_products:
+            for product in existing_products:
+                if product.name == name:
+                    product.quantity += quantity
+                    if price > product.price:
+                        product.price = price
+                    return product
+
+        return cls(name, description, price, quantity)
+
 class Category:
     category_count = 0
     product_count = 0
