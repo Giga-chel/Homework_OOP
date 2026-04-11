@@ -50,6 +50,22 @@ class Product:
     def __add__(self, other):
         return (self.price * self.quantity) + (other.price * other.quantity)
 
+class CategoryIterator:
+    def __init__(self, category):
+        self.products = category._Category__products
+        self.index = 0
+
+    def __next__(self):
+        if self.index < len(self.products):
+            product = self.products[self.index]
+            self.index += 1
+            return product
+        else:
+            raise StopIteration
+
+    def __iter__(self):
+        return self
+
 class Category:
     category_count = 0
     product_count = 0
@@ -77,6 +93,9 @@ class Category:
 
     def __str__(self):
         return f'{self.name}, количество продуктов: {len(self.__products)} шт.'
+
+    def __iter__(self):
+        return CategoryIterator(self)
 
     @property
     def products(self):
