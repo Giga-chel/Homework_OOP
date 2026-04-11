@@ -126,3 +126,16 @@ def test_product_add_zero_quantity():
     p1 = Product("A", "Desc", 100, 10)
     p2 = Product("B", "Desc", 50, 0)
     assert p1 + p2 == 1000
+
+
+def test_category_iterator_loop(category_phones):
+    collected_products = []
+
+    for product in category_phones:
+        assert isinstance(product, Product)
+        collected_products.append(product.name)
+
+    assert len(collected_products) == 3
+    assert "Samsung Galaxy S23 Ultra" in collected_products
+    assert "Iphone 15" in collected_products
+    assert "Xiaomi Redmi Note 11" in collected_products
