@@ -113,3 +113,11 @@ def test_category_str():
     prod = Product("MacBook", "Pro", 150000.0, 2)
     cat.add_product(prod)
     assert str(cat) == "Ноутбуки, количество продуктов: 1 шт."
+
+def test_product_add():
+    product1 = Product("A", "Desc", 100.0, 2)
+    product2 = Product("B", "Desc", 50.0, 4)
+
+    result = product1 + product2
+    assert result == 400
+    assert isinstance(result, (int, float))
