@@ -27,10 +27,8 @@ def test_load_json_data():
     assert len(test_category.products) == 1
     test_product = test_category.products[0]
 
-    assert isinstance(test_product, Product)
-    assert test_product.name == "Тестовый товар"
-    assert test_product.price == 100.0
-    assert test_product.quantity == 5
+    expected_str = "Тестовый товар, 100.0 руб. Остаток: 5 шт."
+    assert test_product == expected_str
 
     assert Category.category_count == 1
     assert Category.product_count == 1
