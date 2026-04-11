@@ -47,6 +47,9 @@ class Product:
 
         return cls(name, description, price, quantity)
 
+    def __add__(self, other):
+        return (self.price * self.quantity) + (other.price * other.quantity)
+
 class Category:
     category_count = 0
     product_count = 0
