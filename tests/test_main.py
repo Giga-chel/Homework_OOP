@@ -127,7 +127,6 @@ def test_product_add_zero_quantity():
     p2 = Product("B", "Desc", 50, 0)
     assert p1 + p2 == 1000
 
-
 def test_category_iterator_loop(category_phones):
     collected_products = []
 
@@ -139,3 +138,14 @@ def test_category_iterator_loop(category_phones):
     assert "Samsung Galaxy S23 Ultra" in collected_products
     assert "Iphone 15" in collected_products
     assert "Xiaomi Redmi Note 11" in collected_products
+
+def test_category_iterator_manual():
+    p1 = Product("A", "A", 10, 1)
+    cat = Category("Cat", "Desc", [p1])
+
+    iterator = iter(cat)
+
+    assert next(iterator) == p1
+
+    with pytest.raises(StopIteration):
+        next(iterator)
