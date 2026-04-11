@@ -3,6 +3,7 @@ class Product:
     description: str
     __price: float
     quantity: int
+
     def __init__(self, name, description, price, quantity):
         self.name = name
         self.description = description
@@ -11,7 +12,7 @@ class Product:
         self.quantity = quantity
 
     def __str__(self):
-        return f'{self.name}, {self.price} руб. Остаток: {self.quantity} шт.'
+        return f"{self.name}, {self.price} руб. Остаток: {self.quantity} шт."
 
     @property
     def price(self):
@@ -20,22 +21,22 @@ class Product:
     @price.setter
     def price(self, new_price):
         if new_price <= 0:
-            print('Цена не должна быть нулевая или отрицательная')
+            print("Цена не должна быть нулевая или отрицательная")
             return
 
         if new_price < self.__price:
-            answer = input('Понизить цену? y/n\n')
-            if answer.lower() != 'y':
+            answer = input("Понизить цену? y/n\n")
+            if answer.lower() != "y":
                 return
 
         self.__price = new_price
 
     @classmethod
     def new_product(cls, product_data, existing_products=None):
-        name = product_data['name']
-        description = product_data['description']
-        price = product_data['price']
-        quantity = product_data['quantity']
+        name = product_data["name"]
+        description = product_data["description"]
+        price = product_data["price"]
+        quantity = product_data["quantity"]
 
         if existing_products:
             for product in existing_products:
@@ -49,6 +50,7 @@ class Product:
 
     def __add__(self, other):
         return (self.price * self.quantity) + (other.price * other.quantity)
+
 
 class CategoryIterator:
     def __init__(self, category):
@@ -65,6 +67,7 @@ class CategoryIterator:
 
     def __iter__(self):
         return self
+
 
 class Category:
     category_count = 0
@@ -92,7 +95,7 @@ class Category:
         Category.product_count += 1
 
     def __str__(self):
-        return f'{self.name}, количество продуктов: {len(self.__products)} шт.'
+        return f"{self.name}, количество продуктов: {len(self.__products)} шт."
 
     def __iter__(self):
         return CategoryIterator(self)
@@ -101,17 +104,22 @@ class Category:
     def products(self):
         return [str(p) for p in self.__products]
 
+
 def print_demo():
     product1 = Product("Samsung Galaxy S23 Ultra", "256GB, Серый цвет, 200MP камера", 180000.0, 5)
     product2 = Product("Iphone 15", "512GB, Gray space", 210000.0, 8)
     product3 = Product("Xiaomi Redmi Note 11", "1024GB, Синий", 31000.0, 14)
-    product4 = Product("55\" QLED 4K", "Фоновая подсветка", 123000.0, 7)
-    category1 = Category("Смартфоны",
-                         "Смартфоны, как средство не только коммуникации, но и получения дополнительных функций для удобства жизни",
-                         [product1, product2, product3])
-    category2 = Category("Телевизоры",
-                         "Современный телевизор, который позволяет наслаждаться просмотром, станет вашим другом и помощником",
-                         [product4])
+    product4 = Product('55" QLED 4K', "Фоновая подсветка", 123000.0, 7)
+    category1 = Category(
+        "Смартфоны",
+        "Смартфоны, как средство не только коммуникации, но и получения дополнительных функций для удобства жизни",
+        [product1, product2, product3],
+    )
+    category2 = Category(
+        "Телевизоры",
+        "Современный телевизор, который позволяет наслаждаться просмотром, станет вашим другом и помощником",
+        [product4],
+    )
 
     print(product1.name)
     print(product1.description)
@@ -141,6 +149,7 @@ def print_demo():
 
     print(Category.category_count)
     print(Category.product_count)
+
 
 if __name__ == "__main__":
     print_demo()
