@@ -10,6 +10,9 @@ class Product:
         self.price = price
         self.quantity = quantity
 
+    def __str__(self):
+        return f'{self.name}, {self.price} руб. Остаток: {self.quantity} шт.'
+
     @property
     def price(self):
         return self.__price
@@ -69,12 +72,12 @@ class Category:
         self.__products.append(product)
         Category.product_count += 1
 
+    def __str__(self):
+        return f'{self.name}, количество продуктов: {len(self.__products)} шт.'
+
     @property
     def products(self):
-        product_strings = []
-        for p in self.__products:
-            product_strings.append(f"{p.name}, {p.price} руб. Остаток: {p.quantity} шт.")
-        return product_strings
+        return [str(p) for p in self.__products]
 
 def print_demo():
     product1 = Product("Samsung Galaxy S23 Ultra", "256GB, Серый цвет, 200MP камера", 180000.0, 5)
