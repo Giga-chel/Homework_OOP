@@ -105,4 +105,11 @@ def test_product_setter_lower_price_reject():
 def test_product_str():
     product = Product("TestProduct", "Описание", 1000.0, 5)
     assert str(product) == "TestProduct, 1000.0 руб. Остаток: 5 шт."
-    
+
+def test_category_str():
+    cat = Category("Ноутбуки", "Техника", [])
+    assert str(cat) == "Ноутбуки, количество продуктов: 0 шт."
+
+    prod = Product("MacBook", "Pro", 150000.0, 2)
+    cat.add_product(prod)
+    assert str(cat) == "Ноутбуки, количество продуктов: 1 шт."
