@@ -101,3 +101,8 @@ def test_product_setter_lower_price_reject():
         prod.price = 80.0
 
     assert prod.price == 100.0
+
+def test_product_str():
+    product = Product("TestProduct", "Описание", 1000.0, 5)
+    assert str(product) == "TestProduct, 1000.0 руб. Остаток: 5 шт."
+    
