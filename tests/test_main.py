@@ -121,3 +121,8 @@ def test_product_add():
     result = product1 + product2
     assert result == 400
     assert isinstance(result, (int, float))
+
+def test_product_add_zero_quantity():
+    p1 = Product("A", "Desc", 100, 10)
+    p2 = Product("B", "Desc", 50, 0)
+    assert p1 + p2 == 1000
