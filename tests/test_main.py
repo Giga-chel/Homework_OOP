@@ -2,7 +2,7 @@ from unittest.mock import patch
 
 import pytest
 
-from src.main import Category, Product, print_demo, Smartphone, LawnGrass
+from src.main import Category, LawnGrass, Product, Smartphone, print_demo
 
 print_demo()
 
@@ -29,31 +29,38 @@ def category_phones():
 
 
 def test_product():
-    product1 = Product("Samsung Galaxy S23 Ultra", "256GB, Серый цвет, 200MP камера", 180000.0, 5)
+    product1 = Smartphone("Samsung Galaxy S23 Ultra", "256GB, Серый цвет, 200MP камера", 180000.0, 5)
     assert product1.name == "Samsung Galaxy S23 Ultra"
     assert product1.description == "256GB, Серый цвет, 200MP камера"
     assert product1.price == 180000.0
     assert product1.quantity == 5
 
 
-def test_category_init(category_phones):
-    assert category_phones.name == "Смартфоны"
-    assert (
-        category_phones.description
-        == "Смартфоны, как средство не только коммуникации, но и получения дополнительных функций для удобства жизни"
+def test_category_init():
+    phone1 = Smartphone("Samsung Galaxy S23 Ultra", "256GB, Серый цвет", 180000.0, 5, 95.5, "S23 Ultra", 256, "Серый")
+    phone2 = Smartphone("Iphone 15", "512GB, Gray space", 210000.0, 8, 98.2, "15", 512, "Gray space")
+    phone3 = Smartphone("Xiaomi Redmi Note 11", "1024GB, Синий", 31000.0, 14, 90.3, "Note 11", 1024, "Синий")
+
+    category = Category(
+        "Смартфоны",
+        "Смартфоны для удобства",
+        [phone1, phone2, phone3]
     )
+
+    assert category.name == "Смартфоны"
+    assert category.description == "Смартфоны для удобства"
     assert Category.category_count == 1
     assert Category.product_count == 3
 
 
 def test_private_products_and_add_products():
     cat = Category("Телевизоры", "Описание")
-    prod = Product("Тест", "Описание", 100, 1)
+    phone = Smartphone("Test Phone", "Описание", 50000.0, 2, 95.0, "Model", 128, "Black")
 
     with pytest.raises(AttributeError):
         _ = cat.__products
 
-    cat.add_product(prod)
+    cat.add_product(phone)
     assert Category.product_count == 1
 
 
@@ -131,9 +138,9 @@ def test_category_str():
     cat = Category("Ноутбуки", "Техника", [])
     assert str(cat) == "Ноутбуки, количество продуктов: 0 шт."
 
-    prod = Product("MacBook", "Pro", 150000.0, 2)
-    cat.add_product(prod)
-    assert str(cat) == "Ноутбуки, количество продуктов: 1 шт."
+    laptop = Smartphone("MacBook Pro", "Pro", 150000.0, 2, 95.0, "Model X", 512, "Silver")
+    cat.add_product(laptop)
+    assert str(cat) == "Ноутбуки, количество продуктов: 2 шт."
 
 
 def test_product_add():
@@ -175,6 +182,7 @@ def test_category_iterator_manual():
     with pytest.raises(StopIteration):
         next(iterator)
 
+
 def test_smartphone_creation():
     phone = Smartphone("Samsung Galaxy S23 Ultra", "256GB, Серый цвет", 180000.0, 5, 3000, "S23 Ultra", 256, "Gray")
     assert phone.name == "Samsung Galaxy S23 Ultra"
@@ -183,12 +191,14 @@ def test_smartphone_creation():
     assert phone.memory == 256
     assert phone.color == "Gray"
 
+
 def test_lawn_grass_creation():
     grass = LawnGrass("Грубые травы", "Неприхотливая трава", 1500.0, 20, "Россия", 14, "Зеленый")
     assert grass.name == "Грубые травы"
     assert grass.country == "Россия"
     assert grass.germination_period == 14
     assert grass.color == "Зеленый"
+
 
 def test_product_add_different_types():
     phone = Smartphone("Samsung Galaxy S23 Ultra", "256GB", 180000.0, 5, 3000, "S23 Ultra", 256, "Gray")

@@ -49,17 +49,20 @@ class Product:
         return cls(name, description, price, quantity)
 
     def __add__(self, other):
-        if type(self) != type(other):
+        if type(self) is not type(other):
             raise TypeError("Нельзя складывать продукты разных категорий.")
         return (self.price * self.quantity) + (other.price * other.quantity)
 
+
 class Smartphone(Product):
-    def __init__(self, name, description, price, quantity, efficiency, model, memory, color):
+    def __init__(self, name, description, price, quantity,
+                 efficiency=None, model=None, memory=None, color=None):
         super().__init__(name, description, price, quantity)
         self.efficiency = efficiency
         self.model = model
         self.memory = memory
         self.color = color
+
 
 class LawnGrass(Product):
     def __init__(self, name, description, price, quantity, country, germination_period, color):
@@ -108,7 +111,7 @@ class Category:
         Category.category_count += 1
 
     def add_product(self, product):
-        if not isinstance(product, (Smartphone, LawnGrass)):
+        if not isinstance(product, Product):
             raise TypeError("Только продукты типа Smartphone или LawnGrass могут быть добавлены.")
         self.__products.append(product)
         Category.product_count += 1
@@ -126,35 +129,66 @@ class Category:
 
 
 def print_demo():
-    product1 = Product("Samsung Galaxy S23 Ultra", "256GB, Серый цвет, 200MP камера", 180000.0, 5)
-    product2 = Product("Iphone 15", "512GB, Gray space", 210000.0, 8)
-    product3 = Product("Xiaomi Redmi Note 11", "1024GB, Синий", 31000.0, 14)
+    phone1 = Smartphone("Samsung Galaxy S23 Ultra", "256GB, Серый цвет, 200MP камера", 180000.0, 5, 95.5,
+                         "S23 Ultra", 256, "Серый")
+    phone2 = Smartphone("Iphone 15", "512GB, Gray space", 210000.0, 8, 98.2, "15", 512, "Gray space")
+    phone3 = Smartphone("Xiaomi Redmi Note 11", "1024GB, Синий", 31000.0, 14, 90.3, "Note 11", 1024, "Синий")
     product4 = Product('55" QLED 4K', "Фоновая подсветка", 123000.0, 7)
+    grass5 = LawnGrass("Газонная трава", "Элитная трава для газона", 500.0, 20, "Россия", "7 дней", "Зеленый")
+    grass6 = LawnGrass("Газонная трава 2", "Выносливая травa", 450.0, 15, "США", "5 дней", "Темно-зеленый")
     category1 = Category(
         "Смартфоны",
         "Смартфоны, как средство не только коммуникации, но и получения дополнительных функций для удобства жизни",
-        [product1, product2, product3],
+        [phone1, phone2, phone3],
     )
     category2 = Category(
-        "Телевизоры",
-        "Современный телевизор, который позволяет наслаждаться просмотром, станет вашим другом и помощником",
-        [product4],
+        "Газонная трава",
+        "Различные виды газонной травы",
+        [grass5, grass6]
     )
 
-    print(product1.name)
-    print(product1.description)
-    print(product1.price)
-    print(product1.quantity)
+    print(phone1.name)
+    print(phone1.description)
+    print(phone1.price)
+    print(phone1.quantity)
+    print(phone1.efficiency)
+    print(phone1.model)
+    print(phone1.memory)
+    print(phone1.color)
 
-    print(product2.name)
-    print(product2.description)
-    print(product2.price)
-    print(product2.quantity)
+    print(phone2.name)
+    print(phone2.description)
+    print(phone2.price)
+    print(phone2.quantity)
+    print(phone2.efficiency)
+    print(phone2.model)
+    print(phone2.memory)
+    print(phone2.color)
 
-    print(product3.name)
-    print(product3.description)
-    print(product3.price)
-    print(product3.quantity)
+    print(phone3.name)
+    print(phone3.description)
+    print(phone3.price)
+    print(phone3.quantity)
+    print(phone3.efficiency)
+    print(phone3.model)
+    print(phone3.memory)
+    print(phone3.color)
+
+    print(grass5.name)
+    print(grass5.description)
+    print(grass5.price)
+    print(grass5.quantity)
+    print(grass5.country)
+    print(grass5.germination_period)
+    print(grass5.color)
+
+    print(grass6.name)
+    print(grass6.description)
+    print(grass6.price)
+    print(grass6.quantity)
+    print(grass6.country)
+    print(grass6.germination_period)
+    print(grass6.color)
 
     print(category1.name == "Смартфоны")
     print(category1.description)
