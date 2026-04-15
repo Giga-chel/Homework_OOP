@@ -182,3 +182,10 @@ def test_smartphone_creation():
     assert phone.model == "S23 Ultra"
     assert phone.memory == 256
     assert phone.color == "Gray"
+
+def test_lawn_grass_creation():
+    grass = LawnGrass("Грубые травы", "Неприхотливая трава", 1500.0, 20, "Россия", 14, "Зеленый")
+    assert grass.name == "Грубые травы"
+    assert grass.country == "Россия"
+    assert grass.germination_period == 14
+    assert grass.color == "Зеленый"
