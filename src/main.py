@@ -49,6 +49,8 @@ class Product:
         return cls(name, description, price, quantity)
 
     def __add__(self, other):
+        if type(self) != type(other):
+            raise TypeError("Нельзя складывать продукты разных категорий.")
         return (self.price * self.quantity) + (other.price * other.quantity)
 
 class Smartphone(Product):
