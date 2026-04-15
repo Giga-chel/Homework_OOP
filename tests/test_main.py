@@ -196,3 +196,11 @@ def test_product_add_different_types():
 
     with pytest.raises(TypeError):
         _ = phone + grass
+
+
+def test_add_valid_products():
+    phone1 = Smartphone("Samsung Galaxy S23 Ultra", "256GB", 180000.0, 5, 3000, "S23 Ultra", 256, "Gray")
+    phone2 = Smartphone("Iphone 15", "512GB", 210000.0, 8, 2800, "15", 512, "Gray")
+
+    result = phone1 + phone2
+    assert result == (phone1.price * phone1.quantity) + (phone2.price * phone2.quantity)
