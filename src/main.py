@@ -108,6 +108,8 @@ class Category:
         Category.category_count += 1
 
     def add_product(self, product):
+        if not isinstance(product, (Smartphone, LawnGrass)):
+            raise TypeError("Только продукты типа Smartphone или LawnGrass могут быть добавлены.")
         self.__products.append(product)
         Category.product_count += 1
 
