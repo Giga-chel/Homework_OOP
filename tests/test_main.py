@@ -2,7 +2,7 @@ from unittest.mock import patch
 
 import pytest
 
-from src.main import Category, Product, print_demo
+from src.main import Category, Product, print_demo, Smartphone, LawnGrass
 
 print_demo()
 
@@ -174,3 +174,11 @@ def test_category_iterator_manual():
 
     with pytest.raises(StopIteration):
         next(iterator)
+
+def test_smartphone_creation():
+    phone = Smartphone("Samsung Galaxy S23 Ultra", "256GB, Серый цвет", 180000.0, 5, 3000, "S23 Ultra", 256, "Gray")
+    assert phone.name == "Samsung Galaxy S23 Ultra"
+    assert phone.efficiency == 3000
+    assert phone.model == "S23 Ultra"
+    assert phone.memory == 256
+    assert phone.color == "Gray"
