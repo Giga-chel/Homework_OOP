@@ -189,3 +189,10 @@ def test_lawn_grass_creation():
     assert grass.country == "Россия"
     assert grass.germination_period == 14
     assert grass.color == "Зеленый"
+
+def test_product_add_different_types():
+    phone = Smartphone("Samsung Galaxy S23 Ultra", "256GB", 180000.0, 5, 3000, "S23 Ultra", 256, "Gray")
+    grass = LawnGrass("Грубые травы", "Описание", 1500.0, 20, "Россия", 14, "Зеленый")
+
+    with pytest.raises(TypeError):
+        _ = phone + grass
