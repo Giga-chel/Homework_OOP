@@ -5,7 +5,12 @@ class BaseProduct(ABC):
     def __str__(self):
         pass
 
-class Product(BaseProduct):
+class MixinProduct:
+    def __init__(self, *args, **kwargs):
+        print(f'{self.__class__.__name__}{args}')
+        super().__init__(*args, **kwargs)
+
+class Product(MixinProduct, BaseProduct):
     name: str
     description: str
     __price: float
