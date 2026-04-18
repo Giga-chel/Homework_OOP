@@ -1,17 +1,20 @@
 from abc import ABC, abstractmethod
 
+
 class BaseProduct(ABC):
-    def __init__(self,*args, **kwargs):
+    def __init__(self, *args, **kwargs):
         super().__init__()
 
     @abstractmethod
     def __str__(self):
-        pass # pragma: no cover
+        pass  # pragma: no cover
+
 
 class MixinProduct:
     def __init__(self, *args, **kwargs):
-        print(f'{self.__class__.__name__}{args}')
+        print(f"{self.__class__.__name__}{args}")
         super().__init__(*args, **kwargs)
+
 
 class Product(MixinProduct, BaseProduct):
     name: str
@@ -71,8 +74,7 @@ class Product(MixinProduct, BaseProduct):
 
 
 class Smartphone(Product):
-    def __init__(self, name, description, price, quantity,
-                 efficiency=None, model=None, memory=None, color=None):
+    def __init__(self, name, description, price, quantity, efficiency=None, model=None, memory=None, color=None):
         super().__init__(name, description, price, quantity)
         self.efficiency = efficiency
         self.model = model
@@ -102,7 +104,8 @@ class CategoryIterator:
             raise StopIteration
 
     def __iter__(self):
-        return self # pragma: no cover
+        return self  # pragma: no cover
+
 
 class BaseEntity(ABC):
     def __init__(self, name):
@@ -159,9 +162,10 @@ class Category(BaseEntity):
         return [str(p) for p in self.__products]
 
 
-def print_demo(): # pragma: no cover
-    phone1 = Smartphone("Samsung Galaxy S23 Ultra", "256GB, Серый цвет, 200MP камера", 180000.0, 5, 95.5,
-                         "S23 Ultra", 256, "Серый")
+def print_demo():  # pragma: no cover
+    phone1 = Smartphone(
+        "Samsung Galaxy S23 Ultra", "256GB, Серый цвет, 200MP камера", 180000.0, 5, 95.5, "S23 Ultra", 256, "Серый"
+    )
     phone2 = Smartphone("Iphone 15", "512GB, Gray space", 210000.0, 8, 98.2, "15", 512, "Gray space")
     phone3 = Smartphone("Xiaomi Redmi Note 11", "1024GB, Синий", 31000.0, 14, 90.3, "Note 11", 1024, "Синий")
     product4 = Product('55" QLED 4K', "Фоновая подсветка", 123000.0, 7)
@@ -172,11 +176,7 @@ def print_demo(): # pragma: no cover
         "Смартфоны, как средство не только коммуникации, но и получения дополнительных функций для удобства жизни",
         [phone1, phone2, phone3],
     )
-    category2 = Category(
-        "Газонная трава",
-        "Различные виды газонной травы",
-        [grass5, grass6]
-    )
+    category2 = Category("Газонная трава", "Различные виды газонной травы", [grass5, grass6])
 
     print(phone1.name)
     print(phone1.description)
@@ -204,6 +204,11 @@ def print_demo(): # pragma: no cover
     print(phone3.model)
     print(phone3.memory)
     print(phone3.color)
+
+    print(product4.name)
+    print(product4.description)
+    print(product4.price)
+    print(product4.quantity)
 
     print(grass5.name)
     print(grass5.description)
@@ -237,4 +242,4 @@ def print_demo(): # pragma: no cover
 
 
 if __name__ == "__main__":
-    print_demo() # pragma: no cover
+    print_demo()  # pragma: no cover
