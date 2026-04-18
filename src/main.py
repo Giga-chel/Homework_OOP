@@ -100,8 +100,23 @@ class CategoryIterator:
     def __iter__(self):
         return self
 
+class BaseEntity(ABC):
+    def __init__(self, name):
+        self.name = name
 
-class Category:
+
+class Order(BaseEntity):
+    def __init__(self, name, product, quantity):
+        super().__init__(name)
+        self.product = product
+        self.quantity = quantity
+
+    @property
+    def total_cost(self):
+        return self.product.price * self.quantity
+
+
+class Category(BaseEntity):
     category_count = 0
     product_count = 0
 
@@ -110,7 +125,7 @@ class Category:
     __products: list
 
     def __init__(self, name, description, products=None):
-        self.name = name
+        super().__init__(name)
         self.description = description
         self.__products = []
 
