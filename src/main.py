@@ -1,9 +1,12 @@
 from abc import ABC, abstractmethod
 
 class BaseProduct(ABC):
+    def __init__(self,*args, **kwargs):
+        super().__init__()
+
     @abstractmethod
     def __str__(self):
-        pass
+        pass # pragma: no cover
 
 class MixinProduct:
     def __init__(self, *args, **kwargs):
@@ -22,6 +25,7 @@ class Product(MixinProduct, BaseProduct):
         self.__price = 0.0
         self.price = price
         self.quantity = quantity
+        super().__init__(name, description, price, quantity)
 
     def __str__(self):
         return f"{self.name}, {self.price} руб. Остаток: {self.quantity} шт."
@@ -98,7 +102,7 @@ class CategoryIterator:
             raise StopIteration
 
     def __iter__(self):
-        return self
+        return self # pragma: no cover
 
 class BaseEntity(ABC):
     def __init__(self, name):
@@ -155,7 +159,7 @@ class Category(BaseEntity):
         return [str(p) for p in self.__products]
 
 
-def print_demo():
+def print_demo(): # pragma: no cover
     phone1 = Smartphone("Samsung Galaxy S23 Ultra", "256GB, Серый цвет, 200MP камера", 180000.0, 5, 95.5,
                          "S23 Ultra", 256, "Серый")
     phone2 = Smartphone("Iphone 15", "512GB, Gray space", 210000.0, 8, 98.2, "15", 512, "Gray space")
@@ -233,4 +237,4 @@ def print_demo():
 
 
 if __name__ == "__main__":
-    print_demo()
+    print_demo() # pragma: no cover
