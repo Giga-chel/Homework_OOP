@@ -230,3 +230,10 @@ def test_mixin_print(capsys):
 
     captured = capsys.readouterr()
     assert captured.out == "Smartphone('Iphone 15', '512GB', 210000.0, 8)\n"
+
+
+def test_order_total_cost():
+    product1 = Product("A", "Desc", 100.0, 2)
+    order = Order('Заказ #172', product1, 2)
+
+    assert order.total_cost == 200
