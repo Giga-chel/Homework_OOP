@@ -213,6 +213,20 @@ def test_add_valid_products():
     result = phone1 + phone2
     assert result == (phone1.price * phone1.quantity) + (phone2.price * phone2.quantity)
 
+
+def test_add_invalid_product_to_category():
+    cat = Category("Тест", "Тест")
+    with pytest.raises(TypeError):
+        cat.add_product("Это строка, а не продукт")
+
+
 def test_abstract_class_creation_fail():
     with pytest.raises(TypeError):
         BaseProduct()
+
+
+def test_mixin_print(capsys):
+    phone2 = Smartphone("Iphone 15", "512GB", 210000.0, 8, 2800, "15", 512, "Gray")
+
+    captured = capsys.readouterr()
+    assert captured.out == "Smartphone('Iphone 15', '512GB', 210000.0, 8)\n"
