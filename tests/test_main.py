@@ -2,9 +2,7 @@ from unittest.mock import patch
 
 import pytest
 
-from src.main import Category, LawnGrass, Product, Smartphone, print_demo
-
-print_demo()
+from src.main import Category, LawnGrass, BaseProduct, Product, Smartphone, Order, print_demo, BaseEntity
 
 
 @pytest.fixture(autouse=True)
@@ -214,3 +212,7 @@ def test_add_valid_products():
 
     result = phone1 + phone2
     assert result == (phone1.price * phone1.quantity) + (phone2.price * phone2.quantity)
+
+def test_abstract_class_creation_fail():
+    with pytest.raises(TypeError):
+        BaseProduct()
