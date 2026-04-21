@@ -2,9 +2,7 @@ from unittest.mock import patch
 
 import pytest
 
-from src.main import Category, LawnGrass, Product, Smartphone, print_demo
-
-print_demo()
+from src.main import BaseProduct, Category, LawnGrass, Order, Product, Smartphone
 
 
 @pytest.fixture(autouse=True)
@@ -41,11 +39,7 @@ def test_category_init():
     phone2 = Smartphone("Iphone 15", "512GB, Gray space", 210000.0, 8, 98.2, "15", 512, "Gray space")
     phone3 = Smartphone("Xiaomi Redmi Note 11", "1024GB, Синий", 31000.0, 14, 90.3, "Note 11", 1024, "Синий")
 
-    category = Category(
-        "Смартфоны",
-        "Смартфоны для удобства",
-        [phone1, phone2, phone3]
-    )
+    category = Category("Смартфоны", "Смартфоны для удобства", [phone1, phone2, phone3])
 
     assert category.name == "Смартфоны"
     assert category.description == "Смартфоны для удобства"
@@ -214,3 +208,28 @@ def test_add_valid_products():
 
     result = phone1 + phone2
     assert result == (phone1.price * phone1.quantity) + (phone2.price * phone2.quantity)
+
+
+def test_add_invalid_product_to_category():
+    cat = Category("Тест", "Тест")
+    with pytest.raises(TypeError):
+        cat.add_product("Это строка, а не продукт")
+
+
+def test_abstract_class_creation_fail():
+    with pytest.raises(TypeError):
+        BaseProduct()
+
+
+def test_mixin_print(capsys):
+    Smartphone("Iphone 15", "512GB", 210000.0, 8, 2800, "15", 512, "Gray")
+
+    captured = capsys.readouterr()
+    assert captured.out == "Smartphone('Iphone 15', '512GB', 210000.0, 8)\n"
+
+
+def test_order_total_cost():
+    product1 = Product("A", "Desc", 100.0, 2)
+    order = Order("Заказ #172", product1, 2)
+
+    assert order.total_cost == 200
