@@ -1,5 +1,6 @@
 from abc import ABC, abstractmethod
 
+
 class NullProduct(Exception):
     def __init__(self, message):
         self.message = message

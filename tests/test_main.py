@@ -2,7 +2,7 @@ from unittest.mock import patch
 
 import pytest
 
-from src.main import BaseProduct, Category, LawnGrass, Order, Product, Smartphone, NullProduct
+from src.main import BaseProduct, Category, LawnGrass, NullProduct, Order, Product, Smartphone
 
 
 @pytest.fixture(autouse=True)
