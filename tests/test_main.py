@@ -242,3 +242,10 @@ def test_avg_price_without_products():
     cat = Category("Пусто", "Нет товаров", [])
     assert cat.average_price() == 0
 
+
+def test_null_product_in_category():
+    prod = Product("Т", "Т", 100, 5)
+    prod.quantity = 0
+    cat = Category("Тест", "Тест", [])
+    with pytest.raises(NullProduct):
+        cat.add_product(prod)
