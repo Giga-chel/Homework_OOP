@@ -152,6 +152,14 @@ class Category(BaseEntity):
         self.__products.append(product)
         Category.product_count += 1
 
+    def average_price(self):
+        sum_all_products = sum(product.price for product in self.__products)
+        product_quantity = len(self.__products)
+        try:
+            return sum_all_products / product_quantity
+        except ZeroDivisionError:
+            return 0
+
     def __str__(self):
         total_quantity = sum(product.quantity for product in self.__products)
         return f"{self.name}, количество продуктов: {total_quantity} шт."
