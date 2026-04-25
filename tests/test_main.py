@@ -249,3 +249,10 @@ def test_null_product_in_category():
     cat = Category("Тест", "Тест", [])
     with pytest.raises(NullProduct):
         cat.add_product(prod)
+
+
+def test_null_product_in_order():
+    prod = Product("Т", "Т", 100, 5)
+    prod.quantity = 0
+    with pytest.raises(NullProduct):
+        Order("Заказ #179", prod, 1)
