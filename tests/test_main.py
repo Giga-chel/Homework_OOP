@@ -237,3 +237,8 @@ def test_error_on_creation():
 def test_avg_price_with_products(category_phones):
     assert category_phones.average_price() == pytest.approx(140333.3333333333)
 
+
+def test_avg_price_without_products():
+    cat = Category("Пусто", "Нет товаров", [])
+    assert cat.average_price() == 0
+
