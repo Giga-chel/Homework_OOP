@@ -232,3 +232,8 @@ def test_order_total_cost():
 def test_error_on_creation():
     with pytest.raises(ValueError, match="Товар с нулевым количеством не может быть добавлен"):
         Product("Тест", "Тест", 100, 0)
+
+
+def test_avg_price_with_products(category_phones):
+    assert category_phones.average_price() == pytest.approx(140333.3333333333)
+
