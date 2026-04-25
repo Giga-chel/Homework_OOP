@@ -1,5 +1,10 @@
 from abc import ABC, abstractmethod
 
+class NullProduct(Exception):
+    def __init__(self, message):
+        self.message = message
+        super().__init__(self.message)
+
 
 class BaseProduct(ABC):
     def __init__(self, *args, **kwargs):
@@ -119,6 +124,8 @@ class Order(BaseEntity):
         super().__init__(name)
         self.product = product
         self.quantity = quantity
+        if product.quantity == 0:
+            raise NullProduct("Товар с нулевым количеством не может быть добавлен")
 
     @property
     def total_cost(self):
@@ -149,6 +156,8 @@ class Category(BaseEntity):
     def add_product(self, product):
         if not isinstance(product, Product):
             raise TypeError("Только продукты типа Smartphone или LawnGrass могут быть добавлены.")
+        if product.quantity == 0:
+            raise NullProduct("Товар с нулевым количеством не может быть добавлен")
         self.__products.append(product)
         Category.product_count += 1
 
@@ -181,12 +190,19 @@ def print_demo():  # pragma: no cover
     product4 = Product('55" QLED 4K', "Фоновая подсветка", 123000.0, 7)
     grass5 = LawnGrass("Газонная трава", "Элитная трава для газона", 500.0, 20, "Россия", "7 дней", "Зеленый")
     grass6 = LawnGrass("Газонная трава 2", "Выносливая травa", 450.0, 15, "США", "5 дней", "Темно-зеленый")
-    category1 = Category(
-        "Смартфоны",
-        "Смартфоны, как средство не только коммуникации, но и получения дополнительных функций для удобства жизни",
-        [phone1, phone2, phone3],
-    )
-    category2 = Category("Газонная трава", "Различные виды газонной травы", [grass5, grass6])
+    try:
+        category1 = Category(
+            "Смартфоны",
+            "Смартфоны, как средство не только коммуникации, но и получения дополнительных функций для удобства жизни",
+            [phone1, phone2, phone3],
+        )
+        category2 = Category("Газонная трава", "Различные виды газонной травы", [grass5, grass6])
+    except NullProduct as e:
+        print(e)
+    else:
+        print("Товар добавлен")
+    finally:
+        print("Обработка добавления товара завершена")
 
     print(phone1.name)
     print(phone1.description)
