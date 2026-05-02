@@ -1,7 +1,10 @@
-import pytest
 from pathlib import Path
-from src.main import Category, Product
+
+import pytest
+
+from src.main import Category
 from src.utils import load_json_data
+
 
 @pytest.fixture(autouse=True)
 def reset_counters():
@@ -10,6 +13,7 @@ def reset_counters():
     yield
     Category.category_count = 0
     Category.product_count = 0
+
 
 def test_load_json_data():
     test_file_path = Path(__file__).parent / "test_data.json"
