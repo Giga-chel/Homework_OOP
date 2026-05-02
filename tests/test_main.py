@@ -2,7 +2,7 @@ from unittest.mock import patch
 
 import pytest
 
-from src.main import BaseProduct, Category, LawnGrass, Order, Product, Smartphone
+from src.main import BaseProduct, Category, LawnGrass, NullProduct, Order, Product, Smartphone
 
 
 @pytest.fixture(autouse=True)
@@ -146,12 +146,6 @@ def test_product_add():
     assert isinstance(result, (int, float))
 
 
-def test_product_add_zero_quantity():
-    p1 = Product("A", "Desc", 100, 10)
-    p2 = Product("B", "Desc", 50, 0)
-    assert p1 + p2 == 1000
-
-
 def test_category_iterator_loop(category_phones):
     collected_products = []
 
@@ -233,3 +227,32 @@ def test_order_total_cost():
     order = Order("Заказ #172", product1, 2)
 
     assert order.total_cost == 200
+
+
+def test_error_on_creation():
+    with pytest.raises(ValueError, match="Товар с нулевым количеством не может быть добавлен"):
+        Product("Тест", "Тест", 100, 0)
+
+
+def test_avg_price_with_products(category_phones):
+    assert category_phones.average_price() == pytest.approx(140333.3333333333)
+
+
+def test_avg_price_without_products():
+    cat = Category("Пусто", "Нет товаров", [])
+    assert cat.average_price() == 0
+
+
+def test_null_product_in_category():
+    prod = Product("Т", "Т", 100, 5)
+    prod.quantity = 0
+    cat = Category("Тест", "Тест", [])
+    with pytest.raises(NullProduct):
+        cat.add_product(prod)
+
+
+def test_null_product_in_order():
+    prod = Product("Т", "Т", 100, 5)
+    prod.quantity = 0
+    with pytest.raises(NullProduct):
+        Order("Заказ #179", prod, 1)
